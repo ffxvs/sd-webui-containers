@@ -18,11 +18,11 @@ RUN mkdir /workspace
 # Update, upgrade, install packages and clean up
 RUN apt-get update --yes && \
     apt-get upgrade --yes && \
-    apt install --yes --no-install-recommends aria2 git git-lfs wget curl bash libgl1 software-properties-common openssh-server sudo unzip unrar zip && \
+    apt install --yes --no-install-recommends curl && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt install --yes --no-install-recommends nodejs
+    apt install --yes --no-install-recommends nodejs aria2 git git-lfs wget bash libgl1 software-properties-common openssh-server sudo unzip unrar zip && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt install "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" -y --no-install-recommends && \
+    apt install --yes --no-install-recommends "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
