@@ -58,6 +58,12 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
 RUN curl https://github.com/camenduru/gperftools/releases/download/v1.0/libtcmalloc_minimal.so.4 -o libtcmalloc_minimal.so.4
 ENV LD_PRELOAD=libtcmalloc_minimal.so.4
 
+# Cleanup
+RUN docker stop $(docker ps -aq) && \
+    docker rm $(docker ps -aq) && \
+    docker system prune -a --volumes && \
+    docker rmi $(docker images -q)
+
 # Startup
 EXPOSE 8888 6006
 CMD jupyter lab --allow-root --ip=0.0.0.0 --no-browser --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin='*' --ServerApp.allow_credentials=True --ContentsManager.allow_hidden=True --Completer.use_jedi=False
