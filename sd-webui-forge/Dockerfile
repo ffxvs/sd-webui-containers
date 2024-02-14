@@ -12,24 +12,15 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 
-# Set the working directory
-WORKDIR /
-
 # Create workspace directory
 RUN mkdir /workspace
-
 
 # Update, upgrade, install packages and clean up
 RUN apt-get update --yes && \
     apt-get upgrade --yes && \
     apt install --yes --no-install-recommends aria2 git git-lfs wget curl bash libgl1 software-properties-common openssh-server sudo unzip unrar zip && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get install "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" -y --no-install-recommends && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
-
+    apt-get install "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" -y --no-install-recommends
 
 # Set up Python and pip
 RUN ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python && \
@@ -54,15 +45,17 @@ RUN pip install --no-cache-dir pickleshare requests gdown pillow==9.5.0 xformers
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs
 
-# malloc
-RUN curl https://github.com/camenduru/gperftools/releases/download/v1.0/libtcmalloc_minimal.so.4 -o libtcmalloc_minimal.so.4
-ENV LD_PRELOAD=libtcmalloc_minimal.so.4
+# Malloc
+RUN curl https://github.com/camenduru/gperftools/releases/download/v1.0/libtcmalloc_minimal.so.4 -o /libtcmalloc_minimal.so.4
+ENV LD_PRELOAD=/libtcmalloc_minimal.so.4
 
-# Cleanup
-RUN docker stop $(docker ps -aq) && \
-    docker rm $(docker ps -aq) && \
-    docker system prune -a --volumes && \
-    docker rmi $(docker images -q)
+# Clean up
+RUN pip cache remove * && pip cache purge && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+    df -h
 
 # Startup
 EXPOSE 8888 6006
