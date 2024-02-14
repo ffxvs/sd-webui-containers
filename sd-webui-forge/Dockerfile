@@ -12,17 +12,15 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 
-# Set the working directory
-WORKDIR /
-
 # Create workspace directory
 RUN mkdir /workspace
 
 # Update, upgrade, install packages and clean up
 RUN apt-get update --yes && \
     apt-get upgrade --yes && \
+    apt install --yes --no-install-recommends aria2 git git-lfs wget curl bash libgl1 software-properties-common openssh-server sudo unzip unrar zip && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt install --yes --no-install-recommends nodejs aria2 git git-lfs wget curl bash libgl1 software-properties-common openssh-server sudo unzip unrar zip && \
+    apt install --yes --no-install-recommends nodejs
     add-apt-repository ppa:deadsnakes/ppa && \
     apt install "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" -y --no-install-recommends && \
     apt-get autoremove -y && \
