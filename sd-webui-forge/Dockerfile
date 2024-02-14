@@ -2,7 +2,7 @@
 
 ARG BASE_IMAGE="nvidia/cuda:12.1.0-devel-ubuntu20.04"
 ARG TORCH="torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/cu121"
-ARG PYTHON_VERSION=3.10
+ARG PYTHON_VERSION="3.10"
 
 FROM ${BASE_IMAGE}
 
@@ -23,7 +23,7 @@ RUN apt-get update --yes && \
     apt-get upgrade --yes && \
     apt install --yes --no-install-recommends aria2 git git-lfs wget curl bash libgl1 software-properties-common openssh-server sudo unzip unrar zip && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get install "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" -y --no-install-recommends && \
+    apt-get install python${PYTHON_VERSION} python${PYTHON_VERSION}-dev python${PYTHON_VERSION}-venv -y --no-install-recommends && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
