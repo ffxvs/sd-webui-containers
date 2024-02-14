@@ -55,6 +55,10 @@ RUN pip install --no-cache-dir pickleshare requests gdown pillow==9.5.0 xformers
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs
 
+# malloc
+RUN curl -o https://github.com/camenduru/gperftools/releases/download/v1.0/libtcmalloc_minimal.so.4
+ENV LD_PRELOAD = libtcmalloc_minimal.so.4
+
 # Startup
 EXPOSE 8888 6006
 CMD jupyter lab --allow-root --ip=0.0.0.0 --no-browser --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin='*' --ServerApp.allow_credentials=True --ContentsManager.allow_hidden=True --Completer.use_jedi=False
