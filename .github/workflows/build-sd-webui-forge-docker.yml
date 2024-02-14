@@ -30,5 +30,3 @@ jobs:
         file: sd-webui-forge/Dockerfile
         tags: ffxvs/sd-webui-forge:py3.10-torch2.1.2-cu12.1
         push: true
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
