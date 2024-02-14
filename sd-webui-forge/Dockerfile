@@ -26,7 +26,6 @@ RUN apt-get update --yes && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    rm -r /setup_20.x && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 
 # Set up Python and pip
