@@ -12,6 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
+    - name: Remove unnecessary files
+      run: |
+          rm -rf /usr/share/dotnet
+          rm -rf "$AGENT_TOOLSDIRECTORY"
+
     - name: Checkout repository
       uses: actions/checkout@v3
       
