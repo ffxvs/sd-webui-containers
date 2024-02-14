@@ -45,7 +45,6 @@ RUN pip install --no-cache-dir ${TORCH}
 RUN pip install --no-cache-dir jupyterlab==4.1.1 jupyter-archive jupyterlab-git \
     jupyterlab-code-formatter jupyter-resource-usage jupyterlab-lsp nbdime \
     ipywidgets ipykernel ipython black isort 'python-lsp-server[all]'
-RUN jupyter labextension install nbgather
 RUN ln -s / .lsp_symlink
 
 # Additional Python Packages
