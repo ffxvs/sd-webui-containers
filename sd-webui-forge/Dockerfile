@@ -2,7 +2,7 @@
 
 ARG BASE_IMAGE="nvidia/cuda:12.1.0-devel-ubuntu20.04"
 ARG TORCH="torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/cu121"
-ARG PYTHON_VERSION="3.10"
+ARG PYTHON_VERSION=3.10
 
 FROM ${BASE_IMAGE}
 
