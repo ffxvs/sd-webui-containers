@@ -18,9 +18,15 @@ RUN mkdir /workspace
 # Update, upgrade, install packages and clean up
 RUN apt-get update --yes && \
     apt-get upgrade --yes && \
-    apt install --yes --no-install-recommends aria2 git git-lfs wget curl bash libgl1 software-properties-common openssh-server sudo unzip unrar zip && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt install --yes --no-install-recommends nodejs aria2 git git-lfs wget curl bash libgl1 software-properties-common openssh-server sudo unzip unrar zip && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get install "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" -y --no-install-recommends
+    apt install "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" -y --no-install-recommends
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -r setup_20.x && \
+    echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 
 # Set up Python and pip
 RUN ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python && \
@@ -40,18 +46,7 @@ RUN ln -s / .lsp_symlink
 
 # Additional Python Packages
 RUN pip install --no-cache-dir pickleshare requests gdown pillow==9.5.0 xformers==0.0.23.post1 gradio==3.41.2 
-
-# Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs
-
-# Clean up
-RUN pip cache remove * && pip cache purge && \
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
-    df -h
+RUN pip cache purge
 
 # Startup
 EXPOSE 8888 6006
