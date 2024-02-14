@@ -45,10 +45,6 @@ RUN pip install --no-cache-dir pickleshare requests gdown pillow==9.5.0 xformers
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs
 
-# Malloc
-RUN curl https://github.com/camenduru/gperftools/releases/download/v1.0/libtcmalloc_minimal.so.4 -o /libtcmalloc_minimal.so.4
-ENV LD_PRELOAD=/libtcmalloc_minimal.so.4
-
 # Clean up
 RUN pip cache remove * && pip cache purge && \
     apt-get autoremove -y && \
