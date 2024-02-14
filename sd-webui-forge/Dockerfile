@@ -3,6 +3,9 @@
 ARG BASE_IMAGE="nvidia/cuda:12.1.0-devel-ubuntu20.04"
 FROM ${BASE_IMAGE}
 
+ARG PYTHON_VERSION="3.10"
+ARG TORCH="torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/cu121"
+
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Set environment variables
@@ -15,7 +18,7 @@ WORKDIR /
 # Create workspace directory
 RUN mkdir /workspace
 
-ARG PYTHON_VERSION=3.10
+
 # Update, upgrade, install packages and clean up
 RUN apt-get update --yes && \
     apt-get upgrade --yes && \
@@ -35,19 +38,18 @@ RUN ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python && \
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python get-pip.py
 
-ARG TORCH="torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/cu121"
 RUN pip install --upgrade --no-cache-dir pip
 RUN pip install --no-cache-dir ${TORCH}
 
 # JupyterLab
-RUN pip install --no-cache-dir jupyterlab=4.1.1 jupyter-archive jupyterlab-git \
+RUN pip install --no-cache-dir jupyterlab==4.1.1 jupyter-archive jupyterlab-git \
     jupyterlab-code-formatter jupyter-resource-usage jupyterlab-lsp nbdime \
     ipywidgets ipykernel ipython black isort 'python-lsp-server[all]'
 RUN jupyter labextension install nbgather
 RUN ln -s / .lsp_symlink
 
 # Additional Python Packages
-RUN pip install --no-cache-dir pickleshare requests gdown pillow==9.5.0 xformers=0.0.23.post1 gradio==3.41.2 
+RUN pip install --no-cache-dir pickleshare requests gdown pillow==9.5.0 xformers==0.0.23.post1 gradio==3.41.2 
 
 # Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
