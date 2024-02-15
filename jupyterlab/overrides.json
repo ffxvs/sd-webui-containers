@@ -1,0 +1,18 @@
+{
+    "@jupyterlab/notebook-extension:tracker": {
+        "enableKernelInitNotification": true,
+        "codeCellConfig": {
+            "lineNumbers": true,
+            "autoClosingBrackets": true,
+            "codeFolding": true
+        }
+    },
+    "@jupyterlab/apputils-extension:notification": {
+        "fetchNews": "false",
+        "checkForUpdates": false,
+        "doNotDisturbMode": true
+    },
+    "@jupyterlab/filebrowser-extension:browser": {
+        "showFullPath": true
+    }
+}
