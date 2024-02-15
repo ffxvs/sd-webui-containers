@@ -11,16 +11,12 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     permissions: write-all
-    steps:
-    - name: Remove unnecessary files
-      run: |
-          rm -rf /usr/share/dotnet
-          rm -rf "$AGENT_TOOLSDIRECTORY"
-          
+    steps:          
     - name: Free Disk Space
       uses: jlumbroso/free-disk-space@main
       with:
         tool-cache: false
+        docker-images: false
 
     - name: Checkout repository
       uses: actions/checkout@v3
