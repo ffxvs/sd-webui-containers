@@ -14,5 +14,8 @@
     },
     "@jupyterlab/filebrowser-extension:browser": {
         "showFullPath": true
+    },
+    "@jupyterlab/completer-extension:manager": {
+        "autoCompletion": true
     }
 }
