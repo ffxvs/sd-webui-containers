@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu20.04
+    runs-on: ubuntu-20.04
     permissions: write-all
     steps:
     - name: Remove unnecessary files
