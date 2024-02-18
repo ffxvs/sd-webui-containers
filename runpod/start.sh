@@ -76,7 +76,7 @@ start_jupyter() {
         echo "Starting Jupyter Lab..."
         mkdir -p /workspace && \
         cd / && \
-        nohup jupyter lab --allow-root --no-browser --port=8888 --ip=* --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin='*' --ServerApp.allow_credentials=True --IdentityProvider.token=$JUPYTER_PASSWORD --FileContentsManager.preferred_dir=/workspace --ContentsManager.allow_hidden=True &> /jupyter.log &
+        nohup jupyter lab --allow-root --no-browser --port=8888 --ip=* --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin=* --ServerApp.allow_credentials=True --IdentityProvider.token=$JUPYTER_PASSWORD --FileContentsManager.preferred_dir=/workspace --ContentsManager.allow_hidden=True &> /jupyter.log &
         echo "Jupyter Lab started"
     fi
 }
