@@ -1,6 +1,6 @@
 # FROM RUNPOD https://github.com/runpod/containers/blob/main/official-templates/pytorch/Dockerfile
 
-FROM nvidia/cuda:12.1.0-cudnn8-runtime-ubuntu22.04
+FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 
 ARG PYTHON_VERSION="3.10"
 ARG TORCH="torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/cu121"
