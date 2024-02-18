@@ -50,4 +50,4 @@ COPY jupyterlab/overrides.json /usr/local/share/jupyter/lab/settings/
 
 # Startup
 EXPOSE 8888 6006
-CMD jupyter lab --allow-root --ip=0.0.0.0 --port=8888 --no-browser --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' --ServerApp.token=$JUPYTER_PASSWORD --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin='*' --ServerApp.allow_credentials=True --ServerApp.preferred_dir=/workspace --ContentsManager.allow_hidden=True
+CMD jupyter lab --allow-root --ip=0.0.0.0 --port=8888 --no-browser --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin='*' --ServerApp.allow_credentials=True --IdentityProvider.token=${JUPYTER_PASSWORD} --FileContentsManager.preferred_dir=/workspace --ContentsManager.allow_hidden=True
