@@ -20,7 +20,7 @@ RUN mkdir /workspace
 
 # Update, install packages and clean up
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends aria2 git git-lfs curl wget gcc g++ bash libgl1 software-properties-common openssh-server google-perftools && \
+    apt-get install --yes --no-install-recommends aria2 git git-lfs curl wget gcc g++ bash libgl1 software-properties-common openssh-server nginx google-perftools && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get install --yes --no-install-recommends "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" && \
     apt-get autoremove -y && \
@@ -48,6 +48,17 @@ RUN pip install --no-cache-dir jupyterlab==4.1.1 \
 # Copy JupyterLab settings
 COPY jupyterlab/overrides.json /usr/local/share/jupyter/lab/settings/
 
-# Startup
+# Remove existing SSH host keys
+RUN rm -f /etc/ssh/ssh_host_*
+
+# NGINX Proxy
+COPY runpod/nginx.conf /etc/nginx/nginx.conf
+COPY runpod/readme.html /usr/share/nginx/html/readme.html
+
+# Start Scripts
+COPY runpod/start.sh /
+RUN chmod +x /start.sh
+
+# Set the default command for the container
 EXPOSE 8888 6006
-CMD jupyter lab --allow-root --ip=0.0.0.0 --port=8888 --no-browser --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin='*' --ServerApp.allow_credentials=True --IdentityProvider.token=${JUPYTER_PASSWORD} --FileContentsManager.preferred_dir=/workspace --ContentsManager.allow_hidden=True
+CMD [ "/start.sh" ]
