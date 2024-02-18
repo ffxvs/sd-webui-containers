@@ -1,7 +1,6 @@
-# COPIED FROM RUNPOD https://github.com/runpod/containers/blob/main/official-templates/pytorch/Dockerfile
+# FROM RUNPOD https://github.com/runpod/containers/blob/main/official-templates/pytorch/Dockerfile
 
-ARG BASE_IMAGE="nvidia/cuda:12.1.0-runtime-ubuntu20.04"
-FROM ${BASE_IMAGE}
+FROM nvidia/cuda:12.1.0-cudnn8-runtime-ubuntu22.04
 
 ARG PYTHON_VERSION="3.10"
 ARG TORCH="torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/cu121"
@@ -19,12 +18,11 @@ WORKDIR /
 # Create workspace directory
 RUN mkdir /workspace
 
-# Update, upgrade, install packages and clean up
+# Update, install packages and clean up
 RUN apt-get update --yes && \
-    apt-get upgrade --yes && \
-    apt install --yes --no-install-recommends aria2 git git-lfs curl wget gcc g++ bash libgl1 software-properties-common openssh-server && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt install --yes --no-install-recommends "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" && \
+    apt-get install --yes --no-install-recommends "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" && \
+    apt-get install --yes --no-install-recommends aria2 git git-lfs curl wget gcc g++ bash libgl1 software-properties-common openssh-server google-perftools && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
@@ -37,10 +35,12 @@ RUN ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python && \
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python get-pip.py
 
-# Torch, JupyterLab and other python packages
+# Pip and Torch
 RUN pip install --upgrade --no-cache-dir pip && \
-    pip install --no-cache-dir ${TORCH} && \
-    pip install --no-cache-dir jupyterlab==4.1.1 \
+    pip install --no-cache-dir ${TORCH}
+
+# JupyterLab and other python packages
+RUN pip install --no-cache-dir jupyterlab==4.1.1 \
     jupyter-archive jupyterlab-git ipywidgets ipykernel ipython \
     pickleshare requests pillow==9.5.0 xformers==${XFORMERS} && \
     pip cache purge
@@ -50,4 +50,4 @@ COPY jupyterlab/overrides.json /usr/local/share/jupyter/lab/settings/
 
 # Startup
 EXPOSE 8888 6006
-CMD jupyter lab --allow-root --ip=0.0.0.0 --no-browser --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin='*' --ServerApp.allow_credentials=True --ContentsManager.allow_hidden=True
+CMD jupyter lab --allow-root --ip=0.0.0.0 --port=8888 --no-browser --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' --ServerApp.token=$JUPYTER_PASSWORD --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin='*' --ServerApp.allow_credentials=True --ServerApp.preferred_dir=/workspace --ContentsManager.allow_hidden=True
