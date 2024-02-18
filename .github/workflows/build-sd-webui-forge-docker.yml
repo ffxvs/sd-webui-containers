@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     permissions: write-all
     steps:          
     - name: Free Disk Space
@@ -34,5 +34,5 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         file: sd-webui-forge/Dockerfile
-        tags: ffxvs/sd-webui-forge:py3.10-torch2.1.2-cu12.1
+        tags: ffxvs/sd-webui-forge:ub22.04-py3.10-tor2.1.2-cu12.1
         push: true
