@@ -72,13 +72,14 @@ export_env_vars() {
 
 # Start jupyter lab
 start_jupyter() {
-    if [[ $JUPYTER_PASSWORD ]]; then
-        echo "Starting Jupyter Lab..."
-        mkdir -p /workspace && \
-        cd / && \
-        nohup jupyter lab --allow-root --no-browser --port=8888 --ip=* --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin=* --ServerApp.allow_credentials=True --ServerApp.token='' --ServerApp.password='' --FileContentsManager.preferred_dir=/workspace --ContentsManager.allow_hidden=True &> /jupyter.log &
-        echo "Jupyter Lab started"
-    fi
+    echo "Starting Jupyter Lab..."
+    mkdir -p /notebooks && \
+    cd / && \
+    nohup jupyter lab --allow-root --no-browser --port=8888 --ip=* --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' \
+        --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin=* \
+        --ServerApp.allow_credentials=True --ServerApp.token='' --ServerApp.password='' --FileContentsManager.delete_to_trash=False \
+        --FileContentsManager.always_delete_dir=True --FileContentsManager.preferred_dir=/notebooks --ContentsManager.allow_hidden=True &> /jupyter.log &
+    echo "Jupyter Lab started"
 }
 
 # ---------------------------------------------------------------------------- #
