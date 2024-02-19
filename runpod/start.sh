@@ -17,7 +17,7 @@ execute_script() {
     local script_msg=$2
     if [[ -f ${script_path} ]]; then
         echo "${script_msg}"
-        bash ${script_path}
+        bash "${script_path}"
     fi
 }
 
@@ -58,7 +58,7 @@ setup_ssh() {
         echo "SSH host keys:"
         for key in /etc/ssh/*.pub; do
             echo "Key: $key"
-            ssh-keygen -lf $key
+            ssh-keygen -lf "${key}"
         done
     fi
 }
@@ -76,7 +76,7 @@ start_jupyter() {
         echo "Starting Jupyter Lab..."
         mkdir -p /workspace && \
         cd / && \
-        nohup jupyter lab --allow-root --no-browser --port=8888 --ip=* --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --IdentityProvider.token=$JUPYTER_PASSWORD --ServerApp.allow_origin=* --FileContentsManager.preferred_dir=/workspace --ContentsManager.allow_hidden=True &> /jupyter.log &
+        nohup jupyter lab --allow-root --no-browser --port=8888 --ip=* --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin=* --ServerApp.allow_credentials=True --ServerApp.token='' --ServerApp.password='' --FileContentsManager.preferred_dir=/workspace --ContentsManager.allow_hidden=True &> /jupyter.log &
         echo "Jupyter Lab started"
     fi
 }
