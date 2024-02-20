@@ -1,5 +1,3 @@
-# FROM RUNPOD https://github.com/runpod/containers/blob/main/official-templates/pytorch/Dockerfile
-
 FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 
 ARG PYTHON_VERSION="3.10"
@@ -40,25 +38,24 @@ RUN pip install --upgrade --no-cache-dir pip && \
     pip install --no-cache-dir ${TORCH}
 
 # JupyterLab and other python packages
-RUN pip install --no-cache-dir jupyterlab==4.1.1 \
-    jupyter-archive jupyterlab-git ipywidgets ipykernel ipython \
+RUN pip install --no-cache-dir jupyterlab jupyter-archive \
+    jupyterlab-git ipywidgets ipykernel ipython \
     pickleshare requests pillow==9.5.0 xformers==${XFORMERS} && \
     pip cache purge
 
-# Copy JupyterLab settings
+# JupyterLab settings
 COPY jupyterlab/overrides.json /usr/local/share/jupyter/lab/settings/
-
-# Remove existing SSH host keys
-RUN rm -f /etc/ssh/ssh_host_*
 
 # NGINX Proxy
 COPY runpod/nginx.conf /etc/nginx/nginx.conf
 COPY runpod/readme.html /usr/share/nginx/html/readme.html
 
-# Start Scripts
+# Runpod start script
 COPY runpod/start.sh /
 RUN chmod +x /start.sh
 
 # Set the default command for the container
 EXPOSE 8888 6006
-CMD [ "/start.sh" ]
+CMD jupyter lab --allow-root --ip=0.0.0.0 --no-browser --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False \
+    --ServerApp.allow_remote_access=True --ServerApp.allow_origin='*' --ServerApp.allow_credentials=True --FileContentsManager.delete_to_trash=False \
+    --FileContentsManager.always_delete_dir=True --FileContentsManager.preferred_dir=/notebooks --ContentsManager.allow_hidden=True
