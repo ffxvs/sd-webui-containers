@@ -50,11 +50,13 @@ COPY jupyterlab/overrides.json /usr/local/share/jupyter/lab/settings/
 COPY runpod/nginx.conf /etc/nginx/
 COPY runpod/readme.html /usr/share/nginx/html/
 
-# Runpod & Paperspace start script
+# Runpod start script
 COPY runpod_start.sh /
+RUN chmod +x /runpod_start.sh
+
+# Paperspace start script
 COPY paperspace_start.sh /
-RUN chmod +x /runpod_start.sh && \
-    chmod +x /paperspace_start.sh
+RUN chmod +x /paperspace_start.sh
 
 # Set the default command for the container
 EXPOSE 8888 6006
