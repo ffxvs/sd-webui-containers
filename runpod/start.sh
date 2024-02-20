@@ -28,6 +28,7 @@ setup_ssh() {
         mkdir -p ~/.ssh
         echo "$PUBLIC_KEY" >> ~/.ssh/authorized_keys
         chmod 700 -R ~/.ssh
+        rm -f /etc/ssh/ssh_host_*
 
          if [ ! -f /etc/ssh/ssh_host_rsa_key ]; then
             ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -q -N ''
@@ -87,13 +88,9 @@ start_jupyter() {
 # ---------------------------------------------------------------------------- #
 
 start_nginx
-
 echo "Pod Started"
-
 setup_ssh
 start_jupyter
 export_env_vars
-
 echo "Start script(s) finished, pod is ready to use."
-
 sleep infinity
