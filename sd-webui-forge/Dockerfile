@@ -47,12 +47,14 @@ RUN pip install --no-cache-dir jupyterlab jupyter-archive \
 COPY jupyterlab/overrides.json /usr/local/share/jupyter/lab/settings/
 
 # NGINX Proxy
-COPY runpod/nginx.conf /etc/nginx/nginx.conf
-COPY runpod/readme.html /usr/share/nginx/html/readme.html
+COPY runpod/nginx.conf /etc/nginx/
+COPY runpod/readme.html /usr/share/nginx/html/
 
-# Runpod start script
-COPY runpod/start.sh /
-RUN chmod +x /start.sh
+# Runpod & Paperspace start script
+COPY runpod_start.sh /
+COPY paperspace_start.sh /
+RUN chmod +x /runpod_start.sh && \
+    chmod +x /paperspace_start.sh
 
 # Set the default command for the container
 EXPOSE 8888 6006
