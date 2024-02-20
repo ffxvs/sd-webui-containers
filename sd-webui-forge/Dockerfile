@@ -51,11 +51,11 @@ COPY runpod/nginx.conf /etc/nginx/
 COPY runpod/readme.html /usr/share/nginx/html/
 
 # Runpod start script
-COPY runpod_start.sh /
+COPY sd-webui-forge/runpod_start.sh /
 RUN chmod +x /runpod_start.sh
 
 # Paperspace start script
-COPY paperspace_start.sh /
+COPY sd-webui-forge/paperspace_start.sh /
 RUN chmod +x /paperspace_start.sh
 
 # Set the default command for the container
