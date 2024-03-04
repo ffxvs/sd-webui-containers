@@ -64,21 +64,27 @@ main_dir="/notebooks"
 
 # Download notebooks
 download_notebooks() {
-    echo "Download sd-webui-forge notebooks if not exist"
+    echo "Download sd-webui notebooks if not exist"
     mkdir -p $main_dir
     cd $main_dir
     
-    forge="sd_webui_forge_runpod"
-    resources="sd_resource_lists"
-    forge_files=$(ls "$forge"* 2>/dev/null)
-    resources_files=$(ls "$resources"* 2>/dev/null)
+    webui="sd_webui_runpod"
+    sd15="sd15_resource_lists"
+    sdxl="sdxl_resource_lists"
+    webui_files=$(ls "$webui"* 2>/dev/null)
+    sd15_files=$(ls "$sd15"* 2>/dev/null)
+    sdxl_files=$(ls "$sdxl"* 2>/dev/null)
 
-    if [ -z "$forge_files" ]; then
-       wget -nv -O sd_webui_forge_runpod.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_runpod.ipynb
+    if [ -z "$webui_files" ]; then
+       wget -nv -O sd_webui_runpod.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_runpod.ipynb
     fi
 
-    if [ -z "$resources_files" ]; then
-       wget -nv -O sd_resource_lists.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/general/sd_resource_lists.ipynb
+    if [ -z "$sd15_files" ]; then
+       wget -nv -O sd15_resource_lists.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb
+    fi
+
+    if [ -z "$sdxl_files" ]; then
+        wget -nv -O sdxl_resource_lists.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sdxl_resource_lists.ipynb
     fi
 }
 

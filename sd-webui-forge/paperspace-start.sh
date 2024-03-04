@@ -13,16 +13,22 @@ download_notebooks() {
     cd $main_dir
     
     forge="sd_webui_forge_paperspace"
-    resources="sd_resource_lists"
+    sd15="sd15_resource_lists"
+    sdxl="sdxl_resource_lists"
     forge_files=$(ls "$forge"* 2>/dev/null)
-    resources_files=$(ls "$resources"* 2>/dev/null)
+    sd15_files=$(ls "$sd15"* 2>/dev/null)
+    sdxl_files=$(ls "$sdxl"* 2>/dev/null)
 
     if [ -z "$forge_files" ]; then
        wget -nv -O sd_webui_forge_paperspace.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_paperspace.ipynb
     fi
 
-    if [ -z "$resources_files" ]; then
-       wget -nv -O sd_resource_lists.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/general/sd_resource_lists.ipynb
+    if [ -z "$sd15_files" ]; then
+       wget -nv -O sd15_resource_lists.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb
+    fi
+
+    if [ -z "$sdxl_files" ]; then
+        wget -nv -O sdxl_resource_lists.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sdxl_resource_lists.ipynb
     fi
 }
 
