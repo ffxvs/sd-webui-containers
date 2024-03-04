@@ -1,4 +1,4 @@
-name: Build SD Webui Forge Container
+name: Build SD Webui Container
 
 on:
   workflow_dispatch:
@@ -37,8 +37,8 @@ jobs:
     - name: Build and Publish to Docker Hub
       uses: docker/build-push-action@v4
       with:
-        file: sd-webui-forge/Dockerfile
+        file: sd-webui/Dockerfile
         tags: |
-          ${{secrets.DOCKER_USER}}/sd-webui-containers:forge-${{github.event.inputs.version}}
-          ${{secrets.DOCKER_USER}}/sd-webui-containers:forge-latest
+          ${{secrets.DOCKER_USER}}/sd-webui-containers:auto1111-${{github.event.inputs.version}}
+          ${{secrets.DOCKER_USER}}/sd-webui-containers:auto1111-latest
         push: true
