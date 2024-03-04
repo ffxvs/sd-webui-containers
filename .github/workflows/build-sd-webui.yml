@@ -3,12 +3,13 @@ name: Build SD Webui Container
 on:
   workflow_dispatch:
     inputs:
-      confirm:
-        description: "Build ?"
-        type: boolean
       version:
         description: "Version"
         default: "ub22.04-py3.10-pt2.1.2-cu12.1"
+        required: true
+      confirm:
+        description: "Confirm"
+        type: boolean
         required: true
 
 jobs:
