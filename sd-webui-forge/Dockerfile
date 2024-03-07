@@ -49,6 +49,7 @@ COPY jupyterlab/overrides.json /usr/local/share/jupyter/lab/settings/
 # NGINX Proxy
 COPY runpod/nginx.conf /etc/nginx/
 COPY runpod/readme.html /usr/share/nginx/html/
+COPY runpod/README.md /usr/share/nginx/html/
 
 # Runpod start script
 COPY sd-webui-forge/runpod-start.sh /
