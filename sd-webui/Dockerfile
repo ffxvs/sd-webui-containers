@@ -18,7 +18,8 @@ RUN mkdir /notebooks
 
 # Update, install packages and clean up
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends aria2 git git-lfs curl wget gcc g++ bash libgl1 software-properties-common openssh-server nginx google-perftools && \
+    apt-get install --yes --no-install-recommends aria2 git git-lfs curl wget gcc g++ bash libgl1 \
+        software-properties-common openssh-server nginx apache2-utils google-perftools && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get install --yes --no-install-recommends "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" && \
     apt-get autoremove -y && \

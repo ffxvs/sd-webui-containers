@@ -7,6 +7,7 @@
 # Start nginx service
 start_nginx() {
     echo "Starting Nginx service..."
+    htpasswd -c -B -b /etc/nginx/.htpasswd "$SERVER_USERNAME" "$SERVER_PASSWORD"
     service nginx start
 }
 

@@ -13,6 +13,7 @@
         "doNotDisturbMode": true
     },
     "@jupyterlab/filebrowser-extension:browser": {
+        "showFileSizeColumn": true,
         "showFullPath": true
     },
     "@jupyterlab/completer-extension:manager": {
