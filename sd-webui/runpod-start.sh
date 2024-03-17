@@ -7,7 +7,7 @@
 # Start nginx service
 start_nginx() {
     echo "Starting Nginx service..."
-    htpasswd -c -B -b /etc/nginx/.htpasswd "$SERVER_USERNAME" "$SERVER_PASSWORD"
+    # htpasswd -c -B -b /etc/nginx/.htpasswd "$SERVER_USERNAME" "$SERVER_PASSWORD"
     service nginx start
 }
 
@@ -93,9 +93,8 @@ download_notebooks() {
 start_jupyter() {
     echo "Starting Jupyter Lab..."
     cd / && \
-    nohup jupyter lab --allow-root --no-browser --port=8888 --ip=* --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' \
-        --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin=* \
-        --ServerApp.allow_credentials=True --ServerApp.token='' --ServerApp.password='' --FileContentsManager.delete_to_trash=False \
+    nohup jupyter lab --allow-root --no-browser --port=8888 --ip=* --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' --ServerApp.allow_origin=* \
+        --IdentityProvider.token="$JUPYTER_PASSWORD" --FileContentsManager.delete_to_trash=False \
         --FileContentsManager.always_delete_dir=True --FileContentsManager.preferred_dir=$main_dir --ContentsManager.allow_hidden=True &> /jupyter.log &
     echo "Jupyter Lab started"
     cd $main_dir
