@@ -5,15 +5,15 @@ on:
     inputs:
       current_version:
         description: "Current Version"
-        default: "ub22.04-py3.10-pt2.1.2-cu12.1"
+        default: "test"
         required: true
       latest_version:
         description: "Latest Version"
-        default: "latest"
+        default: "dev"
         required: true
       branch:
         description: "Branch"
-        default: "main"
+        default: "dev"
         required: true
 
 jobs:
