@@ -93,12 +93,12 @@ download_notebooks() {
 start_jupyter() {
     echo "Starting Jupyter Lab..."
     cd / && \
-    nohup jupyter lab --allow-root --no-browser --port=8888 --ip=* --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' \
+    jupyter lab --allow-root --no-browser --port=8888 --ip=* --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' \
         --ServerApp.trust_xheaders=True --ServerApp.disable_check_xsrf=False --ServerApp.allow_remote_access=True --ServerApp.allow_origin=* \
-        --ServerApp.allow_credentials=True --IdentityProvider.token="$JUPYTER_PASSWORD" --FileContentsManager.delete_to_trash=False \
-        --FileContentsManager.always_delete_dir=True --FileContentsManager.preferred_dir=$main_dir --ContentsManager.allow_hidden=True &> /jupyter.log &
-    echo "Jupyter Lab started"
-    cd $main_dir
+        --ServerApp.allow_credentials=True --ServerApp.token="$JUPYTER_PASSWORD" --FileContentsManager.delete_to_trash=False \
+        --FileContentsManager.always_delete_dir=True --FileContentsManager.preferred_dir=$main_dir --ContentsManager.allow_hidden=True # &> /jupyter.log &
+    # echo "Jupyter Lab started"
+    # cd $main_dir
 }
 
 # ---------------------------------------------------------------------------- #
@@ -109,7 +109,7 @@ start_nginx
 echo "Pod Started"
 setup_ssh
 download_notebooks
-start_jupyter
 export_env_vars
-echo "Start script(s) finished, pod is ready to use."
-sleep infinity
+start_jupyter
+# echo "Start script(s) finished, pod is ready to use."
+# sleep infinity
