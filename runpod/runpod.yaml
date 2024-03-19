@@ -1,8 +1,0 @@
-version: '1.0.0'
-services:
-  - name: 'Jupyter Lab'
-    port: 8888
-    proxy_port: 8888
-  - name: 'Web UI'
-    port: 3001
-    proxy_port: 3000
