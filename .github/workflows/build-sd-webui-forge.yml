@@ -5,7 +5,7 @@ on:
     inputs:
       version:
         description: "Version"
-        default: "ub22.04-py3.10-pt2.1.2-cu12.1"
+        default: "test"
         required: true
 
 jobs:
@@ -37,5 +37,5 @@ jobs:
         file: sd-webui-forge/Dockerfile
         tags: |
           ${{secrets.DOCKER_USER}}/sd-webui-containers:forge-${{github.event.inputs.version}}
-          ${{secrets.DOCKER_USER}}/sd-webui-containers:forge-latest
+          ${{secrets.DOCKER_USER}}/sd-webui-containers:forge-dev
         push: true
