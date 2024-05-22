@@ -17,5 +17,8 @@
     },
     "@jupyterlab/completer-extension:manager": {
         "autoCompletion": true
+    },
+    "@jupyterlab/apputils-extension:themes": {
+        "theme": "JupyterLab Dark"
     }
 }
