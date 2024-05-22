@@ -13,8 +13,8 @@ ENV SHELL=/bin/bash
 # Set the working directory
 WORKDIR /
 
-# Create workspace directory
-RUN mkdir /notebooks
+# Create the necessary directories
+RUN mkdir -p /notebooks /temp-storage/models/sd /temp-storage/models/sdxl /temp-storage/controlNet/sd /temp-storage/controlNet/sdxl /temp-storage/controlNet/preprocessor
 
 # Update, install packages and clean up
 RUN apt-get update --yes && \
