@@ -3,6 +3,14 @@ name: Build SD Webui Container
 on:
   workflow_dispatch:
     inputs:
+      build:
+        type: choice
+        description: "Release build"
+        default: "latest"
+        required: true
+        options:
+          - latest
+          - dev
       version:
         description: "Version"
         default: "ub22.04-py3.10-pt2.1.2-cu12.1"
@@ -37,5 +45,5 @@ jobs:
         file: sd-webui/Dockerfile
         tags: |
           ${{secrets.DOCKER_USER}}/sd-webui-containers:auto1111-${{github.event.inputs.version}}
-          ${{secrets.DOCKER_USER}}/sd-webui-containers:auto1111-latest
+          ${{secrets.DOCKER_USER}}/sd-webui-containers:auto1111-${{github.event.inputs.build}}
         push: true
