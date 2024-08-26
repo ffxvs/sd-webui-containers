@@ -64,28 +64,10 @@ main_dir="/notebooks"
 
 # Download notebooks
 download_notebooks() {
-    echo "Download sd-webui-forge notebooks if not exist"
-    mkdir -p $main_dir
-    cd $main_dir
-    
-    forge="sd_webui_forge_runpod"
-    sd15="sd15_resource_lists"
-    sdxl="sdxl_resource_lists"
-    forge_files=$(ls "$forge"* 2>/dev/null)
-    sd15_files=$(ls "$sd15"* 2>/dev/null)
-    sdxl_files=$(ls "$sdxl"* 2>/dev/null)
-
-    if [ -z "$forge_files" ]; then
-       wget -nv -O sd_webui_forge_runpod.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui-forge/sd_webui_forge_runpod.ipynb
-    fi
-
-    if [ -z "$sd15_files" ]; then
-       wget -nv -O sd15_resource_lists.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb
-    fi
-
-    if [ -z "$sdxl_files" ]; then
-        wget -nv -O sdxl_resource_lists.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sdxl_resource_lists.ipynb
-    fi
+    cd /internal || exit
+    wget -nv -O main.py https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/internal/main.py
+    wget -nv -O notebook_updater.py https://raw.githubusercontent.com/ffxvs/sd-webui-containers/dev/sd-webui-forge/notebook_updater.py
+    python notebook_updater.py --runpod
 }
 
 # Start jupyter lab
@@ -97,7 +79,6 @@ start_jupyter() {
         --ServerApp.allow_credentials=True --ServerApp.token='' --ServerApp.password='' --FileContentsManager.delete_to_trash=False \
         --FileContentsManager.always_delete_dir=True --FileContentsManager.preferred_dir=$main_dir --ContentsManager.allow_hidden=True &> /jupyter.log &
     echo "Jupyter Lab started"
-    cd $main_dir
 }
 
 # ---------------------------------------------------------------------------- #

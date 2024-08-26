@@ -13,7 +13,7 @@ on:
           - dev
       version:
         description: "Version"
-        default: "ub22.04-py3.10-pt2.1.2-cu12.1"
+        default: "ub22.04-py3.10-pt2.3.1-cu12.1"
         required: true
 
 jobs:

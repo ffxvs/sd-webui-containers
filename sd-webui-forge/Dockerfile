@@ -1,12 +1,14 @@
 FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 
 ARG PYTHON_VERSION="3.10"
-ARG TORCH="torch==2.1.2 torchvision==0.16.2 --index-url https://download.pytorch.org/whl/cu121"
-ARG XFORMERS="0.0.23.post1"
+ARG TORCH="torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cu121"
+ARG XFORMERS="0.0.27"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Set environment variables
+ENV CONTAINER_VERSION="2024.08.19"
+ENV WEBUI_DIR="/stable-diffusion-webui-forge"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 
@@ -14,7 +16,7 @@ ENV SHELL=/bin/bash
 WORKDIR /
 
 # Create the necessary directories
-RUN mkdir -p /notebooks /temp-storage/models/sd /temp-storage/models/sdxl /temp-storage/controlNet/sd /temp-storage/controlNet/sdxl /temp-storage/controlNet/preprocessor
+RUN mkdir -p /internal /notebooks /temp-storage/models/sd /temp-storage/models/sdxl /temp-storage/controlNet/sd /temp-storage/controlNet/sdxl /temp-storage/controlNet/preprocessor
 
 # Update, install packages and clean up
 RUN apt-get update --yes && \
@@ -38,10 +40,10 @@ RUN pip install --upgrade --no-cache-dir pip && \
     pip install --no-cache-dir ${TORCH}
 
 # JupyterLab and other python packages
-RUN pip install --no-cache-dir jupyterlab jupyter-archive \
+RUN pip install --no-cache-dir jupyterlab jupyter-archive nbformat \
     jupyterlab-git ipywidgets ipykernel ipython pickleshare \
-    requests insightface setuptools==69.5.1 xformers==${XFORMERS} && \
-    pip install -r https://raw.githubusercontent.com/lllyasviel/stable-diffusion-webui-forge/bfee03d/requirements_versions.txt && \
+    requests insightface xformers==${XFORMERS} && \
+    pip install -r https://raw.githubusercontent.com/lllyasviel/stable-diffusion-webui-forge/main/requirements_versions.txt && \
     pip cache purge
 
 # JupyterLab settings
