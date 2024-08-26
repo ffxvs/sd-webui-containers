@@ -9,7 +9,7 @@ import requests
 
 root = '/notebooks'
 old_notebooks_path = root + '/old-notebooks'
-update_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/updates.json'
+update_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/updates.json'
 forge_runpod_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/sd-webui-forge/sd_webui_forge_runpod.ipynb'
 forge_paperspace_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/sd-webui-forge/sd_webui_forge_paperspace.ipynb'
 sd15_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/resource-lists/sd15_resource_lists.ipynb'
