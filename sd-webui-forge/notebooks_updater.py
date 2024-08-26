@@ -26,7 +26,7 @@ def main():
     if args.paperspace:
         notebook_handler(forge_paperspace_url, 'sd_webui_forge_paperspace.ipynb', 'paperspace', 'forge')
     elif args.runpod:
-        notebook_handler(forge_paperspace_url, 'sd_webui_forge_runpod.ipynb', 'runpod', 'forge')
+        notebook_handler(forge_runpod_url, 'sd_webui_forge_runpod.ipynb', 'runpod', 'forge')
 
     notebook_handler(sd15_url, 'sd15_resource_lists.ipynb', 'resources', 'sd15')
     notebook_handler(sdxl_url, 'sdxl_resource_lists.ipynb', 'resources', 'sdxl')
