@@ -67,7 +67,7 @@ def update_notebook(url, filepath, current_version, latest_version):
     filename = os.path.splitext(filepath)[0]
     files_to_move = glob.glob(filename + '*')
     for file in files_to_move:
-        shutil.move(file, old_notebooks_path)
+        shutil.move(file, os.path.join(old_notebooks_path, os.path.basename(file)))
     urllib.request.urlretrieve(url, filepath)
     print(f'Updated {os.path.basename(filepath)} from {current_version} to {latest_version}')
 
