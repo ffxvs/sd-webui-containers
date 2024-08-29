@@ -20,7 +20,7 @@ RUN mkdir -p /internal /notebooks /temp-storage/models/sd /temp-storage/models/s
 
 # Update, install packages and clean up
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends aria2 git git-lfs curl wget gcc g++ bash libgl1 software-properties-common openssh-server nginx google-perftools && \
+    apt-get install --yes --no-install-recommends aria2 git git-lfs curl wget gcc g++ bash libgl1 software-properties-common openssh-server nginx google-perftools lsof && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get install --yes --no-install-recommends "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" && \
     apt-get autoremove -y && \
