@@ -7,7 +7,7 @@ ARG XFORMERS="0.0.27"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Set environment variables
-ENV CONTAINER_VERSION="2024.09.06"
+ENV CONTAINER_VERSION="2024.09.08"
 ENV WEBUI_DIR="/stable-diffusion-webui-forge"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
@@ -16,7 +16,11 @@ ENV SHELL=/bin/bash
 WORKDIR /
 
 # Create the necessary directories
-RUN mkdir -p /internal /notebooks /temp-storage/models/sd /temp-storage/models/sdxl /temp-storage/controlNet/sd /temp-storage/controlNet/sdxl /temp-storage/controlNet/preprocessor
+RUN mkdir -p /internal /notebooks \
+    /temp-storage/models/sd /temp-storage/lora/sd /temp-storage/controlNet/sd \
+    /temp-storage/models/sdxl /temp-storage/lora/sdxl /temp-storage/controlNet/sdxl \
+    /temp-storage/models/flux /temp-storage/lora/flux /temp-storage/controlNet/flux \
+    /temp-storage/controlNet/preprocessor /temp-storage/text_encoder
 
 # Update, install packages and clean up
 RUN apt-get update --yes && \
