@@ -8,28 +8,11 @@ main_dir="/notebooks"
 
 # Download notebooks
 download_notebooks() {
-    echo "Download sd-webui notebooks if not exist"
-    mkdir -p $main_dir
-    cd $main_dir
-    
-    webui="sd_webui_paperspace"
-    sd15="sd15_resource_lists"
-    sdxl="sdxl_resource_lists"
-    webui_files=$(ls "$webui"* 2>/dev/null)
-    sd15_files=$(ls "$sd15"* 2>/dev/null)
-    sdxl_files=$(ls "$sdxl"* 2>/dev/null)
-
-    if [ -z "$webui_files" ]; then
-       wget -nv -O sd_webui_paperspace.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/sd-webui/sd_webui_paperspace.ipynb
-    fi
-
-    if [ -z "$sd15_files" ]; then
-       wget -nv -O sd15_resource_lists.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sd15_resource_lists.ipynb
-    fi
-
-    if [ -z "$sdxl_files" ]; then
-        wget -nv -O sdxl_resource_lists.ipynb https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/main/resource-lists/sdxl_resource_lists.ipynb
-    fi
+    cd /internal || exit
+    wget -nv -O main.py https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/internal/main.py
+    wget -nv -O on-completed.sh https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/internal/on-completed.sh
+    wget -nv -O notebooks_updater.py https://raw.githubusercontent.com/ffxvs/sd-webui-containers/dev/sd-webui-forge/notebooks_updater.py
+    python notebooks_updater.py --paperspace
 }
 
 # Start jupyter lab
