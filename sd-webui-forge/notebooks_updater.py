@@ -14,6 +14,7 @@ forge_runpod_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-se
 forge_paperspace_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/sd-webui-forge/sd_webui_forge_paperspace.ipynb'
 sd15_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/resource-lists/sd15_resource_lists.ipynb'
 sdxl_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/resource-lists/sdxl_resource_lists.ipynb'
+flux_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/resource-lists/flux_resource_lists.ipynb'
 
 request_headers = {
     "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -45,6 +46,7 @@ def main():
 
     notebook_handler(sd15_url, 'sd15_resource_lists.ipynb', 'resources', 'sd15')
     notebook_handler(sdxl_url, 'sdxl_resource_lists.ipynb', 'resources', 'sdxl')
+    notebook_handler(flux_url, 'flux_resource_lists.ipynb', 'resources', 'flux')
 
 
 def notebook_handler(url: str, filename: str, parent_key: str, child_key: str):
