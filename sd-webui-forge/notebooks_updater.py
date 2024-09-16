@@ -7,14 +7,16 @@ import urllib.request
 import nbformat
 import requests
 
+branch = 'dev'
 root = '/notebooks'
 old_notebooks_path = root + '/old-notebooks'
-versions_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/versions.json'
-forge_runpod_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/sd-webui-forge/sd_webui_forge_runpod.ipynb'
-forge_paperspace_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/sd-webui-forge/sd_webui_forge_paperspace.ipynb'
-sd15_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/resource-lists/sd15_resource_lists.ipynb'
-sdxl_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/resource-lists/sdxl_resource_lists.ipynb'
-flux_url = 'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/dev/resource-lists/flux_resource_lists.ipynb'
+main_repo_url = f'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/{branch}'
+versions_url = main_repo_url + '/versions.json'
+forge_runpod_url = main_repo_url + '/sd-webui-forge/sd_webui_forge_runpod.ipynb'
+forge_paperspace_url = main_repo_url + '/sd-webui-forge/sd_webui_forge_paperspace.ipynb'
+sd15_url = main_repo_url + '/resource-lists/sd15_resource_lists.ipynb'
+sdxl_url = main_repo_url + '/resource-lists/sdxl_resource_lists.ipynb'
+flux_url = main_repo_url + '/resource-lists/flux_resource_lists.ipynb'
 
 request_headers = {
     "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -68,7 +70,7 @@ def check_notebook_version(filename: str):
     with open(filename, 'r', encoding='utf-8') as f:
         notebook = nbformat.read(f, as_version=4)
     metadata = notebook['metadata']
-    version = metadata.get('notebook_version', 0)
+    version = metadata.get('notebook_version', '0')
     return version
 
 
@@ -79,7 +81,7 @@ def check_latest_version(parent_key: str, child_key: str):
             return notebook['version']
     else:
         print(f'Failed to check for updates\nResponse code : {res.status_code}')
-        return 0
+        return '0'
 
 
 def update_notebook(url: str, filepath: str, current_version: str, latest_version: str):

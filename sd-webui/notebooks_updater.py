@@ -68,7 +68,7 @@ def check_notebook_version(filename: str):
     with open(filename, 'r', encoding='utf-8') as f:
         notebook = nbformat.read(f, as_version=4)
     metadata = notebook['metadata']
-    version = metadata.get('notebook_version', 0)
+    version = metadata.get('notebook_version', '0')
     return version
 
 
@@ -79,7 +79,7 @@ def check_latest_version(parent_key: str, child_key: str):
             return notebook['version']
     else:
         print(f'Failed to check for updates\nResponse code : {res.status_code}')
-        return 0
+        return '0'
 
 
 def update_notebook(url: str, filepath: str, current_version: str, latest_version: str):
