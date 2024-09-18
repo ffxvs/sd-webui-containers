@@ -48,7 +48,7 @@ RUN pip install --upgrade --no-cache-dir pip && \
 # JupyterLab and other python packages
 RUN pip install --no-cache-dir jupyterlab jupyter-archive nbformat \
     jupyterlab-git ipywidgets ipykernel ipython pickleshare \
-    requests insightface xformers==${XFORMERS} && \
+    requests insightface python-dotenv xformers==${XFORMERS} && \
     pip install -r https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/v1.10.1/requirements_versions.txt && \
     pip cache purge
 
