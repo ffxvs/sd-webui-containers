@@ -7,9 +7,10 @@ import urllib.request
 import nbformat
 import requests
 
+branch_id = os.environ.get('BRANCH_ID')
 root = '/notebooks'
 old_notebooks_path = root + '/old-notebooks'
-main_repo_url = f'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/{os.environ.get('BRANCH_ID')}'
+main_repo_url = f'https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/{branch_id}'
 versions_url = main_repo_url + '/versions.json'
 forge_runpod_url = main_repo_url + '/sd-webui-forge/sd_webui_forge_runpod.ipynb'
 forge_paperspace_url = main_repo_url + '/sd-webui-forge/sd_webui_forge_paperspace.ipynb'
