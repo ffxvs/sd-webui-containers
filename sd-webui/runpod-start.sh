@@ -4,6 +4,8 @@
 #                          Function Definitions                                #
 # ---------------------------------------------------------------------------- #
 
+export PLATFORM_ID="RUNPOD"
+
 # Start nginx service
 start_nginx() {
     echo "Starting Nginx service..."
@@ -60,15 +62,14 @@ export_env_vars() {
     echo 'source /etc/rp_environment' >> ~/.bashrc
 }
 
-branch="dev"
 main_dir="/notebooks"
 
 # Download notebooks
 download_notebooks() {
     cd /internal || exit
-    wget -nv -O main.py https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/$branch/internal/main.py
-    wget -nv -O on-completed.sh https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/$branch/internal/on-completed.sh
-    wget -nv -O notebooks_updater.py https://raw.githubusercontent.com/ffxvs/sd-webui-containers/$branch/sd-webui/notebooks_updater.py
+    wget -nv -O main.py https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/"$BRANCH"/internal/main.py
+    wget -nv -O on-completed.sh https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/"$BRANCH"/internal/on-completed.sh
+    wget -nv -O notebooks_updater.py https://raw.githubusercontent.com/ffxvs/sd-webui-containers/"$BRANCH"/sd-webui/notebooks_updater.py
     python notebooks_updater.py --runpod
 }
 

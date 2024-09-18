@@ -7,7 +7,9 @@ ARG XFORMERS="0.0.23.post1"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Set environment variables
-ENV CONTAINER_VERSION="2024.09.15"
+ENV BRANCH="test"
+ENV CONTAINER_VERSION="2024.09.18"
+ENV WEBUI_ID="AUTO1111"
 ENV WEBUI_DIR="/stable-diffusion-webui"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash

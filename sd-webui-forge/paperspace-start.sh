@@ -4,15 +4,15 @@
 #                          Function Definitions                                #
 # ---------------------------------------------------------------------------- #
 
-branch="dev"
+export PLATFORM_ID="PAPERSPACE"
 main_dir="/notebooks"
 
 # Download notebooks
 download_notebooks() {
     cd /internal || exit
-    wget -nv -O main.py https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/$branch/internal/main.py
-    wget -nv -O on-completed.sh https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/$branch/internal/on-completed.sh
-    wget -nv -O notebooks_updater.py https://raw.githubusercontent.com/ffxvs/sd-webui-containers/$branch/sd-webui-forge/notebooks_updater.py
+    wget -nv -O main.py https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/"$BRANCH"/internal/main.py
+    wget -nv -O on-completed.sh https://raw.githubusercontent.com/ffxvs/sd-webui-complete-setup/"$BRANCH"/internal/on-completed.sh
+    wget -nv -O notebooks_updater.py https://raw.githubusercontent.com/ffxvs/sd-webui-containers/"$BRANCH"/sd-webui-forge/notebooks_updater.py
     python notebooks_updater.py --paperspace
 }
 
