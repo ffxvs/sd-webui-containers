@@ -10,6 +10,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV BRANCH_ID="test"
 ENV CONTAINER_VERSION="2024.09.18"
 ENV WEBUI_ID="AUTO1111"
+ENV WEBUI_VERSION="v1.10.1"
 ENV WEBUI_DIR="/stable-diffusion-webui"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
@@ -50,9 +51,9 @@ RUN pip install --no-cache-dir jupyterlab jupyter-archive nbformat \
     jupyterlab-git ipywidgets ipykernel ipython pickleshare \
     requests python-dotenv xformers==${XFORMERS} \
     https://huggingface.co/deauxpas/colabrepo/resolve/main/insightface-0.7.3-cp310-cp310-linux_x86_64.whl && \
-    pip install --no-cache-dir -r https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/v1.10.1/requirements_versions.txt && \
-    pip install --no-cache-dir -r /requirements/adetailer.txt && \
-    pip install --no-cache-dir -r /requirements/controlnet.txt && \
+    pip install --no-cache-dir -r https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/${WEBUI_VERSION}/requirements_versions.txt && \
+    pip install --no-cache-dir -r https://raw.githubusercontent.com/ffxvs/sd-webui-containers/${BRANCH_ID}/requirements/adetailer.txt && \
+    pip install --no-cache-dir -r https://raw.githubusercontent.com/ffxvs/sd-webui-containers/${BRANCH_ID}/requirements/controlnet.txt && \
     pip cache purge
 
 # JupyterLab settings
