@@ -1,0 +1,3 @@
+ultralytics>=8.2.0
+mediapipe>=0.10.13
+rich>=13.0.0

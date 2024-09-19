@@ -48,8 +48,11 @@ RUN pip install --upgrade --no-cache-dir pip && \
 # JupyterLab and other python packages
 RUN pip install --no-cache-dir jupyterlab jupyter-archive nbformat \
     jupyterlab-git ipywidgets ipykernel ipython pickleshare \
-    requests insightface python-dotenv xformers==${XFORMERS} && \
-    pip install -r https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/v1.10.1/requirements_versions.txt && \
+    requests python-dotenv xformers==${XFORMERS} \
+    https://huggingface.co/deauxpas/colabrepo/resolve/main/insightface-0.7.3-cp310-cp310-linux_x86_64.whl && \
+    pip install --no-cache-dir -r https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/v1.10.1/requirements_versions.txt && \
+    pip install --no-cache-dir -r requirements/adetailer.txt && \
+    pip install --no-cache-dir -r requirements/controlnet.txt && \
     pip cache purge
 
 # JupyterLab settings
