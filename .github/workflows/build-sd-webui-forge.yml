@@ -6,7 +6,7 @@ on:
       build:
         type: choice
         description: "Release build"
-        default: "test"
+        default: "dev"
         required: true
         options:
           - latest
@@ -14,7 +14,7 @@ on:
           - test
       date:
         description: "Date version"
-        default: "2024.09.18"
+        default: "2024.09.21"
         required: true
 
 jobs:

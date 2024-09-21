@@ -7,9 +7,10 @@ ARG XFORMERS="0.0.27"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Set environment variables
-ENV BRANCH_ID="test"
-ENV CONTAINER_VERSION="2024.09.18"
+ENV BRANCH_ID="dev"
+ENV CONTAINER_VERSION="2024.09.21"
 ENV WEBUI_ID="FORGE"
+ENV WEBUI_VERSION="main"
 ENV WEBUI_DIR="/stable-diffusion-webui-forge"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
@@ -50,7 +51,7 @@ RUN pip install --no-cache-dir jupyterlab jupyter-archive nbformat \
     jupyterlab-git ipywidgets ipykernel ipython pickleshare \
     requests python-dotenv xformers==${XFORMERS} \
     https://huggingface.co/deauxpas/colabrepo/resolve/main/insightface-0.7.3-cp310-cp310-linux_x86_64.whl && \
-    pip install --no-cache-dir -r https://raw.githubusercontent.com/lllyasviel/stable-diffusion-webui-forge/main/requirements_versions.txt && \
+    pip install --no-cache-dir -r https://raw.githubusercontent.com/lllyasviel/stable-diffusion-webui-forge/${WEBUI_VERSION}/requirements_versions.txt && \
     pip install --no-cache-dir -r https://raw.githubusercontent.com/ffxvs/sd-webui-containers/${BRANCH_ID}/requirements/adetailer.txt && \
     pip cache purge
 
