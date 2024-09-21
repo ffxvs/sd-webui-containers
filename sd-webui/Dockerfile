@@ -7,7 +7,7 @@ ARG XFORMERS="0.0.23.post1"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Set environment variables
-ENV BRANCH_ID="dev"
+ENV BRANCH_ID="main"
 ENV CONTAINER_VERSION="2024.09.21"
 ENV WEBUI_ID="AUTO1111"
 ENV WEBUI_VERSION="v1.10.1"
