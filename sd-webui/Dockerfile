@@ -7,6 +7,11 @@ ARG XFORMERS="0.0.23.post1"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Set environment variables
+ENV BRANCH_ID="dev"
+ENV CONTAINER_VERSION="2024.09.21"
+ENV WEBUI_ID="AUTO1111"
+ENV WEBUI_VERSION="v1.10.1"
+ENV WEBUI_DIR="/stable-diffusion-webui"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV SHELL=/bin/bash
 
@@ -14,11 +19,15 @@ ENV SHELL=/bin/bash
 WORKDIR /
 
 # Create the necessary directories
-RUN mkdir -p /notebooks /temp-storage/models/sd /temp-storage/models/sdxl /temp-storage/controlNet/sd /temp-storage/controlNet/sdxl /temp-storage/controlNet/preprocessor
+RUN mkdir -p /internal /notebooks \
+    /temp-storage/models/sd /temp-storage/lora/sd /temp-storage/controlNet/sd \
+    /temp-storage/models/sdxl /temp-storage/lora/sdxl /temp-storage/controlNet/sdxl \
+    /temp-storage/models/flux /temp-storage/lora/flux /temp-storage/controlNet/flux \
+    /temp-storage/text_encoder/flux /temp-storage/controlNet/preprocessor
 
 # Update, install packages and clean up
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends aria2 git git-lfs curl wget gcc g++ bash libgl1 software-properties-common openssh-server nginx google-perftools && \
+    apt-get install --yes --no-install-recommends aria2 git git-lfs curl wget gcc g++ bash libgl1 software-properties-common openssh-server nginx google-perftools lsof && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get install --yes --no-install-recommends "python${PYTHON_VERSION}" "python${PYTHON_VERSION}-dev" "python${PYTHON_VERSION}-venv" && \
     apt-get autoremove -y && \
@@ -38,9 +47,13 @@ RUN pip install --upgrade --no-cache-dir pip && \
     pip install --no-cache-dir ${TORCH}
 
 # JupyterLab and other python packages
-RUN pip install --no-cache-dir jupyterlab jupyter-archive \
+RUN pip install --no-cache-dir jupyterlab jupyter-archive nbformat \
     jupyterlab-git ipywidgets ipykernel ipython pickleshare \
-    requests insightface pillow==9.5.0 setuptools==69.5.1 xformers==${XFORMERS} && \
+    requests python-dotenv xformers==${XFORMERS} \
+    https://huggingface.co/deauxpas/colabrepo/resolve/main/insightface-0.7.3-cp310-cp310-linux_x86_64.whl && \
+    pip install --no-cache-dir -r https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/${WEBUI_VERSION}/requirements_versions.txt && \
+    pip install --no-cache-dir -r https://raw.githubusercontent.com/ffxvs/sd-webui-containers/${BRANCH_ID}/requirements/adetailer.txt && \
+    pip install --no-cache-dir -r https://raw.githubusercontent.com/ffxvs/sd-webui-containers/${BRANCH_ID}/requirements/controlnet.txt && \
     pip cache purge
 
 # JupyterLab settings
