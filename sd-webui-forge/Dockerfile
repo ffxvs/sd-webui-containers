@@ -7,8 +7,8 @@ ARG XFORMERS="0.0.27"
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Set environment variables
-ENV BRANCH_ID="main"
-ENV CONTAINER_VERSION="2024.09.21"
+ENV BRANCH_ID="dev"
+ENV CONTAINER_VERSION="2024.10.13"
 ENV WEBUI_ID="FORGE"
 ENV WEBUI_VERSION="main"
 ENV WEBUI_DIR="/stable-diffusion-webui-forge"

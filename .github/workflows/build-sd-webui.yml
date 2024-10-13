@@ -6,7 +6,7 @@ on:
       build:
         type: choice
         description: "Release build"
-        default: "latest"
+        default: "dev"
         required: true
         options:
           - latest
