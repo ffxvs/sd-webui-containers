@@ -14,7 +14,7 @@ on:
           - test
       date:
         description: "Date version"
-        default: "2024.09.21"
+        default: "2024.10.13"
         required: true
 
 jobs:
